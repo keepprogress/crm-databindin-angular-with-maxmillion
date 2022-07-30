@@ -11,7 +11,9 @@ import {
   AfterViewInit,
   AfterViewChecked,
   OnDestroy,
-  ViewChild, ElementRef
+  ViewChild,
+  ElementRef,
+  ContentChild
 } from '@angular/core';
 
 @Component({
@@ -32,11 +34,13 @@ export class ServerElementComponent implements
   AfterViewInit,
   AfterViewChecked,
   OnDestroy,
-  ViewChild {
+  ViewChild,
+  ContentChild {
   // adding the @Input() decorator to the name property will make it available to the parent component
   @Input() element: {type: string, name: string, content: string};
   @Input() name: string;
   @ViewChild('heading', {static: true}) header: ElementRef;
+  @ContentChild('contentParagraph', {static: true}) paragraph: ElementRef;
 
   descendants: boolean;
   emitDistinctChangesOnly: boolean;
@@ -50,25 +54,26 @@ export class ServerElementComponent implements
   }
 
   ngOnDestroy(): void {
-        console.log('ngOnDestroy called');
-    }
+    console.log('ngOnDestroy called');
+  }
 
   ngAfterViewChecked(): void {
-        console.log('ngAfterViewChecked called');
-    }
+    console.log('ngAfterViewChecked called');
+  }
 
   ngAfterViewInit(): void {
-        console.log('ngAfterViewInit called');
-        console.log('Text Content: ' + this.header.nativeElement.textContent);
-    }
+    console.log('ngAfterViewInit called');
+    console.log('Text Content: ' + this.header.nativeElement.textContent);
+    console.log('Text Content of paragraph: ' + this.paragraph.nativeElement.textContent);
+  }
 
   ngAfterContentInit(): void {
-        console.log('ngAfterContentInit called');
-    }
+    console.log('ngAfterContentInit called');
+  }
 
   ngDoCheck(): void {
-        console.log('ngDoCheck called');
-    }
+    console.log('ngDoCheck called');
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log('ngOnChanges called');
@@ -78,6 +83,7 @@ export class ServerElementComponent implements
   ngOnInit(): void {
     console.log('ngOnInit called');
     console.log('Text Content: ' + this.header.nativeElement.textContent);
+    console.log('Text Content of paragraph: ' + this.paragraph.nativeElement.textContent);
   }
 
   ngAfterContentChecked(): void {
